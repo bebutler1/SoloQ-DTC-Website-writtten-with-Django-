@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>DCT Alpha</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lucida Console", monospace;
+ /* background-color: #E6E6EA;*/
+  
+  background-image: url();
+  background-size: 100%;
+  transition: background-image 2s ease;
+    
+}
+
+/* Style header */
+header {
+  background-color: #448ED9;
+  padding: 10px;
+  text-align: center;
+  font-size: 20px;
+  color: white;
+  float: top;
+  opacity: .7;
+  margin-right: 3.5%;
+  margin-left: 3.5%;
+    margin-bottom: 0px;
+}
+
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+    
+.collapsible {
+    font-family: "Lucida Console", monospace;
+  background-color: #F2EFF1;
+  color: black;
+  cursor: pointer;
+  padding: 30px;
+  width: 93%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 20px;
+  margin-left: 55px;
+  opacity: .7;
+}
+
+.active, .collapsible:hover {
+  background-color: #448ED9;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: black;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+  font-size: 25px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color:#F4F4F8;
+  margin-left: 55px;
+  width: 93%
+}    
+    
+ h2 {
+     text-align: center;
+     color: white;
+     background-color: #8D99AE;
+     margin-right: 10.5%;
+     margin-left: 10.5%;
+     height: 50px;
+     padding: 16px;
+     opacity: .7;
+     margin-bottom: 0px;
+    }
+    
+ h3 {
+     text-align: center;
+     color: white;
+     margin-bottom: 250px;
+     background-color: #8D99AE;
+     margin-right: 20.5%;
+     margin-left: 20.5%;
+     height: 50px;
+     padding: 16px;
+     opacity: .7;
+     font-size: 15px;
+    }
+    
+    form{
+        text-align: center;   
+    }
+    
+    p{
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    
+    .normal {
+        font-weight: 100;
+        text-align: left;
+        font-size: 16;
+    }
+    
+    .note {
+    text-align: center;
+     color: white;
+     background-color: #2C6700;
+     margin-right: 10.5%;
+     margin-left: 10.5%;
+     height: 50px;
+     padding: 16px;
+     opacity: .7;
+     margin-bottom: 0px;
+    font-size: 20px;
+
+    }
+
+    
+</style>
+</head>
+
+
+<body onload="slides()">
+
+<header>
+  <h1>Solo Queue Data Collection Tool</h1>
+</header>
+    
+    <h2>Click an Option to Expand It.</h2>
+    <h2 class="note">Your data has been Proccessed!!!</h2>
+    <h3>Useful Links: <a href="http://www.op.gg/champion/statistics" target="_blank">OP.GG</a> | <a href="https://u.gg/" target="_blank"> U.GG</a> | <a href="https://www.probuilds.net/" target="_blank">PROBUILDS.net</a></h3>
+
+<button class="collapsible" href="/alpha/">Data Collected</button>
+<div class="content">
+    <h2>Success!!!</h2>
+  <p>Thank you, your submission has been received</p>
+    <p><a href="/">Submit another response</a></p>
+    {% for item in request.POST %}
+    <p>{{item}}</p>
+    {% endfor %}
+</div>
+<button class="collapsible">View Data</button>
+<div class="content">
+    
+
+    <p>Your Current Winrate is: {{winrate}}</p>
+    <p>Your Average Attitude Score is: {{attitude}}</p>
+    <p>Possible Insights into your attitude score (in development): {{response}}</p>
+</div>
+<button class="collapsible">Visit the Zoo</button>
+<div class="content">
+  <p>This tab lists the winrates you have with players who appear in at least a fourth of your games. This could be a lot of games or it could only be a few. The players are listed within brackets, and the winrates are as well, the orders of the two lists correspond. The players below were your teammates in at least {{threshold}} games. I assume that as you add more data you will see this number of players decrease, and the number of games increase, but these assumptions could be wrong.</p><br><br>
+  <p>Your winrate(s) with {{players}} are: {{rates}}</p>
+   
+</div>
+<button class="collapsible">About</button>
+<div class="content">
+    <p class= "normal"><b>A Brief Rundown: </b>This website is meant for anyone who'd like to keep a personal record of their games, and their attitude while playing League. The first option allows you to enter in your data. The second option will show you your winrate and average attitude score. Both are based on the entire season collectively, rather than the 20 game system used by Op.gg. The thrid option will show you your winrates with people who appear in more than 1/4 of your games. This is useful for looking at your rates for duo partner(s), or randoms, over the course of a season rather than over a 20 game window. I don't want this to be a replacement for Op.gg or similar services. Those sevices are great and there's nothing wrong with them. Rather than recreating them, I would like this to be a service that shows similar data like winrates, but that goes beyond the 20 game window, and that will allow you to see your attitude based on numerical input. This is something that you will build yourself from the data you input, so it has the potential to be a great way to review your season from more than just a winrate perspective. The usefulness really only grows the more you input data. If you don't think you're interested in reviewing your progress in this way, by all means do it how you'd like to, and thanks for giving this a read. Enjoy the service, and good luck out there on the Rift.</p>
+    <br>
+    <br>
+    
+    <p class = "normal"><b>How it works: </b>This site is really just a front end experience for a program that I wrote. The program works by reading a file on your computer, and doing simple math on the information that it pulls from the file. The way it works is very simple, and pretty dull, but the interesting part comes from the interpretation of the data. I won't be storing anything about you, and it should run based on the file that is local to your computer, so you don't need to worry about tacking or anything like that. If you don't share your data no one will know it. In the future when I know about password encryption and other web security measures, I might add a login feature to the page, but as of right now everything is stored locally. I plan on having the file appear your desktop, so hopefully it'll be there and it will be called something like "Records" or "games". It will be an csv file, so you'll need Excel or some similar program to open it as intended.</p>
+    
+    <br>
+    <br>
+    
+  <p class = "normal">This is a small project, and it is very much a work in progress that should improve as my skills do. Thank you for visiting the site, and allowing me to test my application. If you'd like to see more wonderful artwork from the community it's available <a href="https://fanart.na.leagueoflegends.com/en/">here.</a> Again, thanks for visiting, and please continue to visit.</p>
+  <p class= "normal" >Here's a list of all the artists I've featured thus far: </p>
+    <ul>
+        <li>Zakuga</li>
+        <li>Six Hands</li>
+        <li>大爷 别掐脸</li>
+        <li>Orekigenya</li>
+        <li>Dzaka</li>
+        <li>Alex Heath</li>
+        <li>Ae-Rie</li>
+        <li>Anastasia Mardumova</li>
+        <li>Cirath</li>
+        <li>Michele Tanner</li>
+        <li>Peihao Wang</li>
+        <li>Ayu-Ai</li>
+        <li>Dutomaster</li>
+        <li>Ze</li>
+        <li>Sooyeon Lee</li>
+        <li>Aldo Medina</li>
+        <li>Soemy</li>
+        <li>Jay Zhou</li>
+        <li>Moulinbleu</li>
+        <li>Dave Wolf</li>
+        <li>Ngan Pham</li>
+        <li>のんの Nono</li>
+        <li>Unknown Artist(s)</li>
+        <li>Zippo514</li>
+        <li>Lekso Tiger</li>
+        <li>Muju</li>
+        <li>Vycal</li>
+        
+    </ul>
+    <p class= "normal"><b>I have no affiliation to any of these artists, I merely appreciate their work, and I would like to share it. The rights to these images goes to each artist/Riot where necessary.</b></p>
+    <p></p>
+</div>
+    
+    
+    
+    
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+var back = ["assets/ionia.jpg", "assets/KDA.jpg", "assets/nexus.jpg","assets/Blood_Akali.jpg","assets/Rengar.jpg","assets/Seas_Kled.jpg","assets/River-spirit.jpg", "assets/Warwick_Annie.jpg","assets/Zed_fanart.jpg","assets/Clashing-winds.jpg","assets/Nidalee.jpg", "assets/Aurelion.jpg", "assets/Space-invader.jpg", "assets/Blitz-Viktor.jpg","assets/Valkyrie_Diana.jpg","assets/Vi.png", "assets/Super-Galaxy.jpg", "assets/Jax.jpg","assets/Magma_Lux.jpg","assets/Velkoz_Anatomy.jpg","assets/Death4.jpg", "assets/Star_Gazers.jpg","assets/Jokes-on.jpg","assets/highground.jpg", "assets/Iceborn-blitz.jpg", "assets/Shen.jpg","assets/Lunar_Cass.jpg", "assets/Mecha-Aa.jpg", "assets/Post-apocalyptic.jpg", "assets/Project-Jay.jpg", "assets/BloodmoonA.jpg"];
+
+
+
+var j=0, curr;
+    
+function slides() {
+    /* if (j==0)
+        {
+            console.log("this is " + j);
+           curr = $("body").css('background-image','url("'+back[j]+'")');
+           curr.fadeIn(6000)
+            j++
+        }
+    else if(j ==1)
+        {
+           console.log("this is " + j);
+           curr = $("body").css('background-image','url("'+back[j]+'")');
+           curr.fadeIn(6000)
+            j++
+        }
+    else if(j == 2)
+        {
+           console.log("this is " + j);
+           curr = $("body").css('background-image','url("'+back[j]+'")');
+           curr.fadeIn(6000)
+            j++
+        }
+    else if(j == 3)
+        {
+           console.log("this is " + j);
+           curr = $("body").css('background-image','url("'+back[j]+'")');
+           curr.fadeIn(6000)
+            j++
+        }
+    else if(j ==4)
+        {
+           console.log("this is " + j);
+           curr = $("body").css('background-image','url("'+back[j]+'")');
+           curr.fadeIn(6000)
+            j++
+        }
+    else{
+        j = 0 
+    }*/
+    var rand = back[Math.floor(Math.random() * back.length)];
+    selec = toString(rand)
+         console.log("this is " + rand);
+           curr = $("body").css('background-image','url("/static/'+rand+'")');
+           
+    
+    setTimeout(slides, 5000)
+        
+
+}
+
+    
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>    
+    
+</body>
+
+
+
+
+
+
+</html>
